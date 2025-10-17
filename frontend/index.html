@@ -2,36 +2,70 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#00ffff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <title>Auroria AI - Song Maker</title>
     <link rel="stylesheet" href="./styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+      /* Mobile-specific styles */
+      @media (max-width: 768px) {
+        html, body {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          -webkit-tap-highlight-color: rgba(0, 255, 255, 0.3);
+        }
+
+        .app-header {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 1000;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+        }
+
+        .container {
+          padding-top: 100px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
     </style>
   </head>
   <body>
     <header class="app-header">
       <div class="brand">
         <span class="brand-icon">⚡</span>
-        Auroria AI
+        <span class="brand-text">Auroria AI</span>
       </div>
       <nav class="nav">
         <a href="#" class="nav-link active" data-tab="create">
           <span class="nav-icon">🎵</span>
-          Create
+          <span class="nav-text">Create</span>
         </a>
         <a href="#" class="nav-link" data-tab="library">
           <span class="nav-icon">📚</span>
-          Library
+          <span class="nav-text">Library</span>
         </a>
         <a href="#" class="nav-link" data-tab="collaborate">
           <span class="nav-icon">👥</span>
-          Collaborate
+          <span class="nav-text">Collaborate</span>
         </a>
         <a href="#" class="nav-link" data-tab="portfolio">
           <span class="nav-icon">🚀</span>
-          Portfolio
+          <span class="nav-text">Portfolio</span>
         </a>
         <div class="user-section">
           <button id="login-btn" class="btn-secondary">Login</button>
@@ -41,6 +75,9 @@
           </div>
         </div>
       </nav>
+      <div class="mobile-menu-toggle">
+        <span class="menu-icon">☰</span>
+      </div>
     </header>
 
     <main class="container">

@@ -789,10 +789,64 @@
   margin: 0;
 }
 
-/* Portfolio Mobile Responsive */
+/* Mobile-First Responsive Design */
 @media (max-width: 768px) {
-  .portfolio {
+  /* Mobile Navigation */
+  .brand-text {
+    display: none;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    border-bottom: 2px solid var(--brand);
+    flex-direction: column;
     padding: 20px;
+    gap: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .nav-link {
+    justify-content: flex-start;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .nav-text {
+    display: inline;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .user-section {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+  }
+
+  /* Mobile Container */
+  .container {
+    padding-top: 120px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  /* Mobile Portfolio */
+  .portfolio {
+    padding: 20px 10px;
   }
 
   .hero-section {
@@ -823,6 +877,15 @@
   .resume-widgets-grid {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  /* Mobile Widgets */
+  .resume-widget {
+    padding: 20px;
+  }
+
+  .widget-header h4 {
+    font-size: 1.1em;
   }
 
   .experience-item {
@@ -862,5 +925,177 @@
 
   .info-value {
     text-align: left;
+  }
+
+  /* Mobile Forms */
+  .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tab {
+    padding: 20px;
+  }
+
+  /* Mobile Buttons */
+  button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mobile Audio Player */
+  .audio-container {
+    margin: 15px 0;
+  }
+
+  audio {
+    width: 100%;
+  }
+
+  /* Mobile Waveform */
+  .waveform-container canvas {
+    width: 100% !important;
+    height: 60px !important;
+  }
+
+  /* Mobile Footer */
+  .footer {
+    padding: 20px 10px;
+    font-size: 0.8em;
+  }
+}
+
+/* Touch Interactions */
+@media (hover: none) and (pointer: coarse) {
+  .nav-link:hover {
+    transform: none;
+  }
+
+  .resume-widget:hover {
+    transform: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  button:hover::before {
+    left: -100%;
+  }
+
+  button:hover {
+    transform: none;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .container {
+    padding-top: 100px !important;
+  }
+
+  .hero-section {
+    gap: 20px;
+  }
+
+  .avatar-glow {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5em;
+  }
+
+  .hero-name {
+    font-size: 1.8em;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .app-header {
+    padding: 15px 15px;
+  }
+
+  .container {
+    padding: 15px 10px;
+    padding-top: 100px !important;
+  }
+
+  .tab {
+    padding: 15px;
+  }
+
+  .resume-widget {
+    padding: 15px;
+  }
+
+  .hero-name {
+    font-size: 1.8em;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .avatar-glow {
+    box-shadow: 0 0 60px rgba(0, 255, 255, 0.6);
+  }
+
+  .resume-widget {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+  }
+}
+
+/* Dark Mode Preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0a0a;
+    --panel: #1a1a1a;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .avatar-glow {
+    animation: none;
+  }
+
+  .brand {
+    animation: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .app-header,
+  .nav,
+  .mobile-menu-toggle,
+  .user-section,
+  footer {
+    display: none !important;
+  }
+
+  .container {
+    padding: 0 !important;
+  }
+
+  .tab {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+
+  .resume-widget {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
   }
 }
