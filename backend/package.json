@@ -1,0 +1,21 @@
+{
+  "name": "auroria-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build": "npm run build:copy",
+    "build:copy": "if not exist dist mkdir dist && xcopy *.js dist\\ && xcopy .env* dist\\ 2>nul"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nanoid": "^5.0.7",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

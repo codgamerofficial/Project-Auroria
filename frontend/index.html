@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Auroria AI - Song Maker</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+    </style>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-icon">⚡</span>
+        Auroria AI
+      </div>
+      <nav class="nav">
+        <a href="#" class="nav-link active" data-tab="create">
+          <span class="nav-icon">🎵</span>
+          Create
+        </a>
+        <a href="#" class="nav-link" data-tab="library">
+          <span class="nav-icon">📚</span>
+          Library
+        </a>
+        <a href="#" class="nav-link" data-tab="collaborate">
+          <span class="nav-icon">👥</span>
+          Collaborate
+        </a>
+        <div class="user-section">
+          <button id="login-btn" class="btn-secondary">Login</button>
+          <div id="user-profile" class="user-profile" hidden>
+            <span id="user-avatar" class="user-avatar">👤</span>
+            <span id="user-name" class="user-name">Guest</span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="generator tab" id="tab-create">
+        <h1>
+          <span class="section-icon">🚀</span>
+          Create a new song
+        </h1>
+        <p class="section-description">Harness the power of AI to generate unique music tracks with custom lyrics and styles</p>
+        <form id="gen-form">
+          <label>
+            Prompt
+            <textarea id="prompt" placeholder="Describe your song: mood, instruments, tempo, vocals..."></textarea>
+          </label>
+          <label>
+            Lyrics (optional)
+            <textarea id="lyrics" placeholder="Paste your lyrics here, or leave empty for AI generation..."></textarea>
+          </label>
+          <div class="lyrics-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="auto-generate-lyrics" checked />
+              Auto-generate lyrics if empty
+            </label>
+            <button type="button" id="generate-lyrics-btn" class="btn-secondary">
+              <span class="btn-icon">📝</span>
+              Generate Lyrics
+            </button>
+          </div>
+          <div class="row">
+            <label>
+              Style
+              <select id="style">
+                <option value="pop">Pop</option>
+                <option value="hiphop">Hip Hop</option>
+                <option value="edm">EDM</option>
+                <option value="rock">Rock</option>
+                <option value="jazz">Jazz</option>
+                <option value="lofi">Lo-Fi</option>
+              </select>
+            </label>
+            <label>
+              Duration (s)
+              <input type="number" id="duration" min="5" max="60" value="15" />
+            </label>
+            <label>
+              BPM
+              <input type="number" id="bpm" min="60" max="180" value="120" />
+            </label>
+            <label>
+              Seed
+              <input type="number" id="seed" min="1" max="999999999" placeholder="random" />
+            </label>
+            <label>
+              Language
+              <select id="language">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="bn">Bengali</option>
+              </select>
+            </label>
+          </div>
+          <div class="row">
+            <label>
+              Vocals
+              <select id="vocals">
+                <option value="none">None</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+                <option value="choir">Choir</option>
+              </select>
+            </label>
+            <label>
+              Preset
+              <select id="preset">
+                <option value="cinematic">Cinematic</option>
+                <option value="dance">Dance</option>
+                <option value="trap">Trap</option>
+                <option value="lofi">Lo-Fi Chill</option>
+                <option value="rock">Alt Rock</option>
+              </select>
+            </label>
+            <label>
+              Mode
+              <select id="mode">
+                <option value="standard">Standard</option>
+                <option value="instrumental">Instrumental</option>
+                <option value="custom">Custom</option>
+              </select>
+            </label>
+            <button type="button" id="btn-lyrics" class="btn-secondary">Lyrics helper</button>
+          </div>
+          <div class="row">
+            <label style="align-items:center;gap:6px;flex-direction:row">
+              <input type="checkbox" id="use-exact" /> Use exact lyrics timing
+            </label>
+            <label style="align-items:center;gap:6px;flex-direction:row">
+              <input type="checkbox" id="auto-generate" checked /> Auto-generate lyrics
+            </label>
+            <label style="align-items:center;gap:6px;flex-direction:row">
+              <input type="checkbox" id="public-share" /> Make public
+            </label>
+          </div>
+          <div class="row">
+            <button type="submit" id="create-btn">Create</button>
+            <div id="error" role="alert" class="error-msg"></div>
+          </div>
+        </form>
+      </section>
+
+      <section class="library tab" id="tab-library" hidden>
+        <h1>
+          <span class="section-icon">🎼</span>
+          Your Library
+        </h1>
+        <p class="section-description">Access your previously generated tracks and manage your music collection</p>
+        <div id="library-empty" class="muted">
+          <span class="empty-icon">🎵</span>
+          No songs yet. Generate your first track in Create.
+        </div>
+        <div id="library-grid" class="grid"></div>
+      </section>
+
+      <section class="collaborate tab" id="tab-collaborate" hidden>
+        <h1>
+          <span class="section-icon">👥</span>
+          Collaborative Studio
+        </h1>
+        <p class="section-description">Work together with other creators in real-time</p>
+
+        <div class="collaboration-section">
+          <div class="room-controls">
+            <input type="text" id="room-code" placeholder="Enter room code..." />
+            <button id="join-room" class="btn-secondary">Join Room</button>
+            <button id="create-room" class="btn-secondary">Create Room</button>
+          </div>
+
+          <div id="collaboration-status" class="status-panel">
+            <div class="status-indicator offline">Not connected</div>
+            <div class="participants-list">
+              <div class="participant you">
+                <span class="avatar">👤</span>
+                <span class="name">You</span>
+                <span class="role">Host</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="shared-playlist" class="shared-playlist">
+            <h3>Shared Playlist</h3>
+            <div id="shared-tracks" class="shared-tracks">
+              <div class="empty-shared">No shared tracks yet. Add songs to collaborate!</div>
+            </div>
+          </div>
+
+          <div class="collaboration-chat">
+            <div id="chat-messages" class="chat-messages"></div>
+            <div class="chat-input">
+              <input type="text" id="chat-input" placeholder="Type a message..." />
+              <button id="send-message">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="progress" id="progress-section" hidden>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div id="progress-bar"></div>
+          </div>
+          <div class="progress-text" id="progress-text">
+            <span class="progress-icon">⚡</span>
+            Queued…
+          </div>
+        </div>
+      </section>
+
+      <section class="player" id="player" hidden>
+        <h2>
+          <span class="section-icon">🎧</span>
+          Preview
+        </h2>
+        <div class="audio-container">
+          <audio id="audio" controls></audio>
+          <div class="waveform-container">
+            <canvas id="waveform" width="800" height="80"></canvas>
+          </div>
+          <div id="lyrics-display" class="lyrics-display" hidden>
+            <div class="lyrics-header">
+              <h4>Lyrics</h4>
+              <button id="toggle-lyrics-sync" class="btn-secondary">Enable Sync</button>
+            </div>
+            <div id="lyrics-content" class="lyrics-content"></div>
+          </div>
+        </div>
+        <div class="row">
+          <button id="download-wav">
+            <span class="btn-icon">💾</span>
+            Download WAV
+          </button>
+          <button id="btn-variation" class="btn-secondary">
+            <span class="btn-icon">🔄</span>
+            Make Variation
+          </button>
+          <button id="btn-extend" class="btn-secondary">
+            <span class="btn-icon">➕</span>
+            Extend +15s
+          </button>
+          <button id="btn-continue" class="btn-secondary">
+            <span class="btn-icon">▶️</span>
+            Continue Song
+          </button>
+          <button id="btn-remix" class="btn-secondary">
+            <span class="btn-icon">🎛️</span>
+            Remix
+          </button>
+        </div>
+        <div class="row">
+          <button id="export-mp3" class="btn-secondary">
+            <span class="btn-icon">🎵</span>
+            Export MP3 (ID3)
+          </button>
+          <button id="export-flac" class="btn-secondary">
+            <span class="btn-icon">🎼</span>
+            Export FLAC
+          </button>
+          <button id="export-stems" class="btn-secondary">
+            <span class="btn-icon">🎚️</span>
+            Export Stems
+          </button>
+          <button id="export-m3u" class="btn-secondary">
+            <span class="btn-icon">📋</span>
+            Export M3U8
+          </button>
+          <button id="export-zip" class="btn-secondary">
+            <span class="btn-icon">📦</span>
+            Export ZIP (all)
+          </button>
+          <button id="btn-share" class="btn-secondary">
+            <span class="btn-icon">🔗</span>
+            Share
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <span class="footer-text">Made with</span>
+        <span class="footer-brand">Auroria AI</span>
+        <span class="footer-icon">⚡</span>
+        <span class="footer-text">(demo)</span>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/lamejs@1.2.0/lame.min.js"></script>
+    <script src="https://unpkg.com/browser-id3-writer@4.1.0/dist/browser-id3-writer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="./app.js" type="module"></script>
+  </body>
+  </html>
+
+
