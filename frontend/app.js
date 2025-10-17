@@ -1444,8 +1444,36 @@ function createModal(title, content) {
 function renderPortfolio() {
   // Portfolio is static HTML, just ensure it's visible
   console.log('Rendering portfolio section');
-  // Add any dynamic portfolio features here if needed
-  // For now, the portfolio content is static and styled
+
+  // Add loading states for resume images
+  setTimeout(() => {
+    const resumeImages = document.querySelectorAll('.resume-image');
+    resumeImages.forEach(img => {
+      img.addEventListener('load', function() {
+        this.style.opacity = '1';
+        const loading = this.parentElement.querySelector('.resume-loading');
+        if (loading) loading.style.display = 'none';
+      });
+
+      img.addEventListener('error', function() {
+        console.error('Failed to load resume image:', this.src);
+        const loading = this.parentElement.querySelector('.resume-loading');
+        if (loading) {
+          loading.innerHTML = `
+            <span class="error-icon">❌</span>
+            <p>Image failed to load</p>
+            <small>Check image URL</small>
+          `;
+          loading.style.display = 'flex';
+        }
+      });
+
+      // Show loading initially
+      const loading = img.parentElement.querySelector('.resume-loading');
+      if (loading) loading.style.display = 'flex';
+      img.style.opacity = '0';
+    });
+  }, 100);
 }
 
 
