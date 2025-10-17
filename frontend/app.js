@@ -24,6 +24,7 @@ const shareBtn = document.getElementById('btn-share');
 const tabs = document.querySelectorAll('.nav-link');
 const tabCreate = document.getElementById('tab-create');
 const tabLibrary = document.getElementById('tab-library');
+const tabPortfolio = document.getElementById('tab-portfolio');
 const tabCollaborate = document.getElementById('tab-collaborate');
 const libraryGrid = document.getElementById('library-grid');
 const libraryEmpty = document.getElementById('library-empty');
@@ -187,8 +188,10 @@ tabs.forEach(t => t.addEventListener('click', (e) => {
   tabCreate.hidden = which !== 'create';
   tabLibrary.hidden = which !== 'library';
   tabCollaborate.hidden = which !== 'collaborate';
+  tabPortfolio.hidden = which !== 'portfolio';
   if (which === 'library') renderLibrary();
   if (which === 'collaborate') renderCollaboration();
+  if (which === 'portfolio') renderPortfolio();
 }));
 
 form.addEventListener('submit', async (e) => {
@@ -1436,6 +1439,13 @@ function createModal(title, content) {
   });
 
   return modal;
+}
+
+function renderPortfolio() {
+  // Portfolio is static HTML, just ensure it's visible
+  console.log('Rendering portfolio section');
+  // Add any dynamic portfolio features here if needed
+  // For now, the portfolio content is static and styled
 }
 
 
