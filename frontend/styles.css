@@ -327,6 +327,90 @@
   font-weight: 600;
 }
 
+/* Resume Gallery Styles */
+.resume-gallery-section h3 {
+  color: var(--brand);
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-align: center;
+  text-shadow: var(--glow);
+}
+
+.resume-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.resume-item {
+  background: linear-gradient(135deg, var(--panel) 0%, rgba(0, 255, 255, 0.05) 100%);
+  border: 2px solid var(--brand);
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--glow);
+  transition: all 0.3s ease;
+}
+
+.resume-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+}
+
+.resume-image-container {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.resume-image {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  border-radius: 15px;
+  border: 2px solid var(--brand);
+  box-shadow: var(--glow);
+  transition: all 0.3s ease;
+}
+
+.resume-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+}
+
+.resume-placeholder {
+  padding: 40px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px dashed var(--brand);
+  border-radius: 15px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.placeholder-icon {
+  font-size: 3em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.resume-placeholder p {
+  margin: 10px 0 5px 0;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+.resume-placeholder small {
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
+.resume-caption {
+  color: var(--text);
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.1em;
+}
+
 /* Portfolio Mobile Responsive */
 @media (max-width: 768px) {
   .portfolio {
@@ -356,6 +440,11 @@
 
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+
+  .resume-gallery {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .experience-item {
